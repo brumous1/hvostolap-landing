@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Хвостолап — Ветеринарная клиника в Москве</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0d1b2a;
+      --navy2: #1b2d42;
+      --blue: #1a6fa8;
+      --blue-light: #2589c7;
+      --white: #ffffff;
+      --gray: #f4f6f9;
+      --text: #2c3e50;
+      --muted: #6b7c93;
+      --border: #dde3ec;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--navy);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 64px;
+    }
+    .logo {
+      color: var(--white);
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+    }
+    .logo span { color: #4db8ff; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-phone {
+      color: var(--white);
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+    }
+
+    /* HERO */
+    .hero {
+      margin-top: 64px;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 60%, #1a3a5c 100%);
+      min-height: 88vh;
+      display: flex; align-items: center;
+      padding: 5% 5%;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; right: 0; top: 0; bottom: 0;
+      width: 45%;
+      background: url('https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?w=900&q=80') center/cover no-repeat;
+      opacity: 0.18;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 580px; }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(74,178,255,0.15);
+      border: 1px solid rgba(74,178,255,0.3);
+      color: #4db8ff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.9rem;
+      border-radius: 2px;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      color: var(--white);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 em { font-style: normal; color: #4db8ff; }
+    .hero p {
+      color: rgba(255,255,255,0.7);
+      font-size: 1.1rem;
+      margin-bottom: 2.5rem;
+      max-width: 440px;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--blue);
+      color: var(--white);
+      padding: 0.85rem 2rem;
+      border-radius: 3px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background 0.2s;
+      border: none; cursor: pointer;
+    }
+    .btn-primary:hover { background: var(--blue-light); }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      padding: 0.85rem 2rem;
+      border-radius: 3px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      border: 1px solid rgba(255,255,255,0.3);
+      transition: border-color 0.2s;
+    }
+    .btn-outline:hover { border-color: rgba(255,255,255,0.7); }
+    .hero-stats {
+      display: flex; gap: 2.5rem; margin-top: 3.5rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 2rem;
+    }
+    .stat-val {
+      color: var(--white);
+      font-size: 1.8rem;
+      font-weight: 800;
+      display: block;
+    }
+    .stat-label {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* SECTIONS */
+    section { padding: 80px 5%; }
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 0.75rem;
+    }
+    h2 {
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+    .section-sub {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 500px;
+      margin-bottom: 3rem;
+    }
+
+    /* SERVICES */
+    .services { background: var(--gray); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .service-card:hover { box-shadow: 0 8px 32px rgba(13,27,42,0.1); transform: translateY(-3px); }
+    .service-icon {
+      width: 48px; height: 48px;
+      background: rgba(26,111,168,0.08);
+      border-radius: 3px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.25rem;
+      font-size: 1.5rem;
+    }
+    .service-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--navy); }
+    .service-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+    .service-price {
+      margin-top: 1.25rem;
+      font-size: 0.9rem;
+      color: var(--blue);
+      font-weight: 600;
+    }
+
+    /* DOCTORS */
+    .doctors-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+    .doctor-card {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .doctor-photo {
+      height: 220px;
+      background: var(--gray);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4rem;
+      color: var(--border);
+    }
+    .doctor-info { padding: 1.5rem; }
+    .doctor-info h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 0.25rem; }
+    .doctor-spec { font-size: 0.85rem; color: var(--blue); font-weight: 600; margin-bottom: 0.75rem; }
+    .doctor-exp { font-size: 0.85rem; color: var(--muted); }
+
+    /* WHY */
+    .why { background: var(--navy); }
+    .why h2 { color: var(--white); }
+    .why .section-sub { color: rgba(255,255,255,0.5); }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+    }
+    .why-item { display: flex; gap: 1rem; align-items: flex-start; }
+    .why-num {
+      font-size: 2rem; font-weight: 900;
+      color: rgba(74,184,255,0.2);
+      line-height: 1;
+      min-width: 2.5rem;
+    }
+    .why-item h4 { color: var(--white); font-size: 1rem; margin-bottom: 0.4rem; }
+    .why-item p { color: rgba(255,255,255,0.5); font-size: 0.88rem; }
+
+    /* CONTACT */
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+    .contact-row { display: flex; gap: 1rem; align-items: flex-start; }
+    .contact-icon {
+      width: 40px; height: 40px; min-width: 40px;
+      background: rgba(26,111,168,0.08);
+      border-radius: 3px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .contact-row h4 { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.2rem; }
+    .contact-row p { font-size: 0.95rem; color: var(--text); font-weight: 500; }
+
+    /* FORM */
+    .form { display: flex; flex-direction: column; gap: 1rem; }
+    .form input, .form select, .form textarea {
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 0.8rem 1rem;
+      font-size: 0.95rem;
+      font-family: inherit;
+      color: var(--text);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .form input:focus, .form select:focus, .form textarea:focus { border-color: var(--blue); }
+    .form textarea { resize: vertical; min-height: 100px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    /* FOOTER */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.4);
+      text-align: center;
+      padding: 2rem 5%;
+      font-size: 0.85rem;
+    }
+    footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero-stats { gap: 1.5rem; }
+      .contact-wrap { grid-template-columns: 1fr; gap: 2.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">Хвосто<span>лап</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Услуги</a></li>
+    <li><a href="#doctors">Врачи</a></li>
+    <li><a href="#contact">Контакты</a></li>
+  </ul>
+  <a href="tel:+74951234567" class="nav-phone">+7 (495) 123-45-67</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Ветеринарная клиника · Москва</div>
+    <h1>Профессиональная<br>помощь вашему <em>питомцу</em></h1>
+    <p>Диагностика, лечение и профилактика. Современное оборудование, врачи с опытом от 8 лет. Работаем без выходных.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Записаться на приём</a>
+      <a href="#services" class="btn-outline">Наши услуги</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <span class="stat-val">12+</span>
+        <span class="stat-label">Лет на рынке</span>
+      </div>
+      <div>
+        <span class="stat-val">4 800</span>
+        <span class="stat-label">Пациентов в год</span>
+      </div>
+      <div>
+        <span class="stat-val">7</span>
+        <span class="stat-label">Специалистов</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-label">Что мы лечим</div>
+  <h2>Услуги клиники</h2>
+  <p class="section-sub">Полный спектр ветеринарной помощи — от плановой вакцинации до сложных хирургических операций.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🩺</div>
+      <h3>Терапия и диагностика</h3>
+      <p>Первичный приём, осмотр, постановка диагноза. УЗИ, рентген, лабораторные анализы на месте.</p>
+      <div class="service-price">от 1 500 ₽</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔬</div>
+      <h3>Лабораторные исследования</h3>
+      <p>Клинический и биохимический анализ крови, мочи, кала. Результаты в течение часа.</p>
+      <div class="service-price">от 800 ₽</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏥</div>
+      <h3>Хирургия</h3>
+      <p>Плановые и экстренные операции. Стерилизация, кастрация, ортопедия, удаление новообразований.</p>
+      <div class="service-price">от 6 000 ₽</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">💉</div>
+      <h3>Вакцинация</h3>
+      <p>Профилактическая вакцинация для кошек, собак, кроликов и хорьков. Оформление ветпаспорта.</p>
+      <div class="service-price">от 1 200 ₽</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🦷</div>
+      <h3>Стоматология</h3>
+      <p>Профессиональная чистка зубов, удаление зубного камня, лечение и удаление зубов под анестезией.</p>
+      <div class="service-price">от 3 500 ₽</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🚑</div>
+      <h3>Скорая помощь</h3>
+      <p>Экстренная помощь без записи. Выезд ветеринара на дом в Москве в пределах МКАД.</p>
+      <div class="service-price">от 3 000 ₽</div>
+    </div>
+  </div>
+</section>
+
+<!-- DOCTORS -->
+<section id="doctors">
+  <div class="section-label">Наша команда</div>
+  <h2>Врачи клиники</h2>
+  <p class="section-sub">Специалисты с опытом работы от 8 лет. Постоянное повышение квалификации в России и Европе.</p>
+  <div class="doctors-grid">
+    <div class="doctor-card">
+      <div class="doctor-photo">👨‍⚕️</div>
+      <div class="doctor-info">
+        <h3>Смирнов Алексей Игоревич</h3>
+        <div class="doctor-spec">Главный врач · Хирург</div>
+        <div class="doctor-exp">Опыт 14 лет · Кандидат ветеринарных наук</div>
+      </div>
+    </div>
+    <div class="doctor-card">
+      <div class="doctor-photo">👩‍⚕️</div>
+      <div class="doctor-info">
+        <h3>Козлова Марина Сергеевна</h3>
+        <div class="doctor-spec">Терапевт · УЗИ-диагност</div>
+        <div class="doctor-exp">Опыт 10 лет · Специализация: мелкие животные</div>
+      </div>
+    </div>
+    <div class="doctor-card">
+      <div class="doctor-photo">👨‍⚕️</div>
+      <div class="doctor-info">
+        <h3>Фёдоров Дмитрий Павлович</h3>
+        <div class="doctor-spec">Ортопед · Невролог</div>
+        <div class="doctor-exp">Опыт 8 лет · Стажировка в Берлинском университете</div>
+      </div>
+    </div>
+    <div class="doctor-card">
+      <div class="doctor-photo">👩‍⚕️</div>
+      <div class="doctor-info">
+        <h3>Воронова Екатерина Юрьевна</h3>
+        <div class="doctor-spec">Дерматолог · Онколог</div>
+        <div class="doctor-exp">Опыт 9 лет · Член ESVD</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why">
+  <div class="section-label">Почему мы</div>
+  <h2>Стандарты качества</h2>
+  <p class="section-sub">Подход, который мы не меняем с первого дня.</p>
+  <div class="why-grid">
+    <div class="why-item">
+      <div class="why-num">01</div>
+      <div>
+        <h4>Собственная лаборатория</h4>
+        <p>Анализы готовы за 1–2 часа, не нужно ждать сутки.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-num">02</div>
+      <div>
+        <h4>Работаем 7 дней в неделю</h4>
+        <p>Приём с 9:00 до 21:00 ежедневно, включая праздники.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-num">03</div>
+      <div>
+        <h4>Цифровые медкарты</h4>
+        <p>История лечения в электронном виде — всегда под рукой.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-num">04</div>
+      <div>
+        <h4>Фиксированные цены</h4>
+        <p>Смета до начала лечения. Никаких скрытых доплат.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Записаться</div>
+  <h2>Контакты</h2>
+  <p class="section-sub">Запишитесь онлайн или позвоните — ответим в течение 15 минут.</p>
+  <div class="contact-wrap">
+    <div class="contact-info">
+      <div class="contact-row">
+        <div class="contact-icon">📍</div>
+        <div>
+          <h4>Адрес</h4>
+          <p>Москва, ул. Академика Янгеля, 15, стр. 2</p>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon">📞</div>
+        <div>
+          <h4>Телефон</h4>
+          <p>+7 (495) 123-45-67</p>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon">🕐</div>
+        <div>
+          <h4>Режим работы</h4>
+          <p>Ежедневно с 9:00 до 21:00</p>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon">✉️</div>
+        <div>
+          <h4>Email</h4>
+          <p>info@hvostolap.ru</p>
+        </div>
+      </div>
+    </div>
+
+    <form class="form" onsubmit="return false;">
+      <div class="form-row">
+        <input type="text" placeholder="Ваше имя" />
+        <input type="tel" placeholder="Телефон" />
+      </div>
+      <select>
+        <option value="" disabled selected>Выберите услугу</option>
+        <option>Первичный приём</option>
+        <option>Вакцинация</option>
+        <option>Хирургия</option>
+        <option>Лабораторные анализы</option>
+        <option>Стоматология</option>
+        <option>Скорая помощь</option>
+      </select>
+      <textarea placeholder="Опишите проблему (необязательно)"></textarea>
+      <button type="submit" class="btn-primary">Записаться на приём</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <p>© 2024 Ветеринарная клиника «Хвостолап» · Москва · <a href="tel:+74951234567">+7 (495) 123-45-67</a></p>
+</footer>
+
+</body>
+</html>
